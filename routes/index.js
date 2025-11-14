@@ -7,6 +7,6 @@ router.get("/", (req, res) => {
 });
 
 router.use("/movies", require("./movies"));
-// router.use("/games", require("./video-games"));
+router.use("/games", require("./video-games"));
 
 module.exports = router;
