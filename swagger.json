@@ -1,16 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Movies API",
-    "description": "An API for movies",
+    "title": "Movies and Games API",
+    "description": "An API for movies and games",
     "version": "1.0.0"
   },
   "host": "localhost:5000",
   "basePath": "/",
-  "schemes": [
-    "https",
-    "http"
-  ],
+  "schemes": ["http", "https"],
   "paths": {
     "/": {
       "get": {
@@ -34,10 +31,9 @@
     },
     "/movies/": {
       "get": {
+        "tags": ["Movies"],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"
@@ -45,6 +41,7 @@
         }
       },
       "post": {
+        "tags": ["Movies"],
         "description": "",
         "parameters": [
           {
@@ -54,25 +51,46 @@
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "maxLength": 200
                 },
                 "releaseYear": {
-                  "example": "any"
+                  "type": "integer"
                 },
                 "director": {
-                  "example": "any"
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
                 },
-                "productionCompnay": {
-                  "example": "any"
+                "productionCompany": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
                 },
                 "mainCast": {
-                  "example": "any"
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "minItems": 1
                 },
                 "plot": {
-                  "example": "any"
+                  "type": "string",
+                  "minLength": 10,
+                  "maxLength": 1000
                 },
                 "runTimeMinutes": {
-                  "example": "any"
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 600
                 }
               }
             }
@@ -90,6 +108,7 @@
     },
     "/movies/{id}": {
       "put": {
+        "tags": ["Movies"],
         "description": "",
         "parameters": [
           {
@@ -97,15 +116,70 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "releaseYear": {
+                  "type": "integer"
+                },
+                "director": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "productionCompany": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "mainCast": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "minItems": 1
+                },
+                "plot": {
+                  "type": "string",
+                  "minLength": 10,
+                  "maxLength": 1000
+                },
+                "runTimeMinutes": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 600
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "delete": {
+        "tags": ["Movies"],
         "description": "",
         "parameters": [
           {
@@ -116,8 +190,191 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/games/": {
+      "get": {
+        "tags": ["Video Games"],
+        "description": "",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Video Games"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "releaseYear": {
+                  "type": "integer"
+                },
+                "developer": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "platforms": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "genre": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "minItems": 1
+                },
+                "modes": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "priceUSD": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 600
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/games/{id}": {
+      "put": {
+        "tags": ["Video Games"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "releaseYear": {
+                  "type": "integer"
+                },
+                "developer": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "platforms": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "genre": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "minItems": 1
+                },
+                "modes": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "priceUSD": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 600
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Video Games"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

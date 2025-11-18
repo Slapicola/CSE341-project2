@@ -2,23 +2,28 @@ const mongodb = require("../data/database");
 const objectId = require("mongodb").ObjectId;
 
 const getAllMovies = async (req, res) => {
-  const movieResults = await mongodb
-    .getDatabase()
-    .db()
-    .collection("Movies")
-    .find();
-  movieResults.toArray().then((movies) => {
+  //#swagger.tags=["Movies"]
+  try {
+    const movieResults = await mongodb
+      .getDatabase()
+      .db()
+      .collection("Movies")
+      .find()
+      .toArray();
     res.setHeader("Content-Type", "application/json");
-    res.status(200).json(movies);
-  });
+    res.status(200).json(movieResults);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 };
 
 const createMovie = async (req, res) => {
+  //#swagger.tags=["Movies"]
   const movie = {
     title: req.body.title,
     releaseYear: req.body.releaseYear,
     director: req.body.director,
-    productionCompnay: req.body.productionCompnay,
+    productionCompany: req.body.productionCompany,
     mainCast: req.body.mainCast,
     plot: req.body.plot,
     runTimeMinutes: req.body.runTimeMinutes,
@@ -37,4 +42,47 @@ const createMovie = async (req, res) => {
   }
 };
 
-module.exports = { getAllMovies, createMovie };
+const updateMovie = async (req, res) => {
+  //#swagger.tags=["Movies"]
+  const movieId = new objectId(req.params.id);
+  const movie = {
+    title: req.body.title,
+    releaseYear: req.body.releaseYear,
+    director: req.body.director,
+    productionCompnay: req.body.productionCompnay,
+    mainCast: req.body.mainCast,
+    plot: req.body.plot,
+    runTimeMinutes: req.body.runTimeMinutes,
+  };
+  const response = await mongodb
+    .getDatabase()
+    .db()
+    .collection("Movies")
+    .replaceOne({ _id: movieId }, movie);
+  if (response.modifiedCount > 0) {
+    res.status(204).send();
+  } else {
+    res
+      .status(500)
+      .json(response.error || "Some error occured while updating the movie.");
+  }
+};
+
+const deleteMovie = async (req, res) => {
+  //#swagger.tags=["Movies"]
+  const movieId = new objectId(req.params.id);
+  const response = await mongodb
+    .getDatabase()
+    .db()
+    .collection("Movies")
+    .deleteOne({ _id: movieId });
+  if (response.deletedCount > 0) {
+    res.status(204).send();
+  } else {
+    res
+      .status(500)
+      .json(response.error || "Some error occured while deleting the movie.");
+  }
+};
+
+module.exports = { getAllMovies, createMovie, updateMovie, deleteMovie };

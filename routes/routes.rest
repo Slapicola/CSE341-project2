@@ -1,0 +1,69 @@
+###LOCALHOST
+
+### Get all movies
+GET http://localhost:5000/movies
+
+### Get all games
+GET http://localhost:5000/games
+
+### Create Movie
+POST http://localhost:5000/movies
+Content-Type: application/json
+
+{
+    "title": "",
+    "releaseYear": "",
+    "director": "",
+    "productionCompany": "",
+    "mainCast": "",
+    "plot": "",
+    "runTimeMinutes": ""
+}
+
+### Create Game
+POST http://localhost:5000/games
+Content-Type: application/json
+
+{
+    "title": "",
+    "releaseYear": "",
+    "developer": "",
+    "platforms": "",
+    "genre": "",
+    "modes": "",
+    "priceUSD": ""
+}
+
+### Put/update a movie
+PUT http://localhost:5000/movies/69161cef3d7f472eead3a1c7
+Content-Type: application/json
+
+{
+    "title": "",
+    "releaseYear": "",
+    "director": "",
+    "productionCompany": "",
+    "mainCast": "",
+    "plot": "",
+    "runTimeMinutes": ""
+}
+
+### Put/update a game
+PUT http://localhost:5000/games/6917562d1cfbf0916a5b8e10
+Content-Type: application/json
+
+{
+    "title": "",
+    "releaseYear": "",
+    "developer": "",
+    "platforms": "",
+    "genre": "",
+    "modes": "",
+    "priceUSD": ""
+}
+
+### Delete a movie
+DELETE http://localhost:5000/movies/691785eacb57ead34072909d
+
+### Delete a game
+DELETE http://localhost:5000/games/6918df9f49b6faa8e2167484
