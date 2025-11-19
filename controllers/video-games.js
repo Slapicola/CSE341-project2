@@ -19,69 +19,81 @@ const getAllGames = async (req, res) => {
 
 const createGame = async (req, res) => {
   //#swagger.tags=["Video Games"]
-  const game = {
-    title: req.body.title,
-    releaseYear: req.body.releaseYear,
-    developer: req.body.developer,
-    platforms: req.body.platforms,
-    genre: req.body.genre,
-    modes: req.body.modes,
-    priceUSD: req.body.priceUSD,
-  };
-  const response = await mongodb
-    .getDatabase()
-    .db()
-    .collection("Video Games")
-    .insertOne(game);
-  if (response.acknowledged) {
-    res.status(204).send();
-  } else {
-    res
-      .status(500)
-      .json(response.error || "Some error occured while creating the game.");
+  try {
+    const game = {
+      title: req.body.title,
+      releaseYear: req.body.releaseYear,
+      developer: req.body.developer,
+      platforms: req.body.platforms,
+      genre: req.body.genre,
+      modes: req.body.modes,
+      priceUSD: req.body.priceUSD,
+    };
+    const response = await mongodb
+      .getDatabase()
+      .db()
+      .collection("Video Games")
+      .insertOne(game);
+    if (response.acknowledged) {
+      res.status(204).send();
+    } else {
+      res
+        .status(500)
+        .json(response.error || "Some error occured while creating the game.");
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 
 const updateGame = async (req, res) => {
   //#swagger.tags=["Video Games"]
-  const gameId = new objectId(req.params.id);
-  const game = {
-    title: req.body.title,
-    releaseYear: req.body.releaseYear,
-    developer: req.body.developer,
-    platforms: req.body.platforms,
-    genre: req.body.genre,
-    modes: req.body.modes,
-    priceUSD: req.body.priceUSD,
-  };
-  const response = await mongodb
-    .getDatabase()
-    .db()
-    .collection("Video Games")
-    .replaceOne({ _id: gameId }, game);
-  if (response.modifiedCount > 0) {
-    res.status(204).send();
-  } else {
-    res
-      .status(500)
-      .json(response.error || "Some error occured while updating the game.");
+  try {
+    const gameId = new objectId(req.params.id);
+    const game = {
+      title: req.body.title,
+      releaseYear: req.body.releaseYear,
+      developer: req.body.developer,
+      platforms: req.body.platforms,
+      genre: req.body.genre,
+      modes: req.body.modes,
+      priceUSD: req.body.priceUSD,
+    };
+    const response = await mongodb
+      .getDatabase()
+      .db()
+      .collection("Video Games")
+      .replaceOne({ _id: gameId }, game);
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res
+        .status(500)
+        .json(response.error || "Some error occured while updating the game.");
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 
 const deleteGame = async (req, res) => {
   //#swagger.tags=["Video Games"]
-  const gameId = new objectId(req.params.id);
-  const response = await mongodb
-    .getDatabase()
-    .db()
-    .collection("Video Games")
-    .deleteOne({ _id: gameId });
-  if (response.deletedCount > 0) {
-    res.status(204).send();
-  } else {
-    res
-      .status(500)
-      .json(response.error || "Some error occured while deleting the game.");
+  try {
+    const gameId = new objectId(req.params.id);
+    const response = await mongodb
+      .getDatabase()
+      .db()
+      .collection("Video Games")
+      .deleteOne({ _id: gameId });
+    if (response.deletedCount > 0) {
+      res.status(204).send();
+    } else {
+      res
+        .status(500)
+        .json(response.error || "Some error occured while deleting the game.");
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 
