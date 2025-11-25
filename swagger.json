@@ -5,9 +5,16 @@
     "description": "An API for movies and games",
     "version": "1.0.0"
   },
-  "host": "cse341-project2-ef6b.onrender.com",
+  "host": "localhost:5000",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": ["http"],
+  "securityDefinitions": {
+    "sessionAuth": {
+      "type": "apiKey",
+      "name": "connect.sid",
+      "in": "cookie"
+    }
+  },
   "paths": {
     "/": {
       "get": {
@@ -43,6 +50,7 @@
       "post": {
         "tags": ["Movies"],
         "description": "",
+        "security": [{ "sessionAuth": [] }],
         "parameters": [
           {
             "name": "body",
@@ -110,6 +118,7 @@
       "put": {
         "tags": ["Movies"],
         "description": "",
+        "security": [{ "sessionAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -181,6 +190,7 @@
       "delete": {
         "tags": ["Movies"],
         "description": "",
+        "security": [{ "sessionAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -213,6 +223,7 @@
       "post": {
         "tags": ["Video Games"],
         "description": "",
+        "security": [{ "sessionAuth": [] }],
         "parameters": [
           {
             "name": "body",
@@ -285,6 +296,7 @@
       "put": {
         "tags": ["Video Games"],
         "description": "",
+        "security": [{ "sessionAuth": [] }],
         "parameters": [
           {
             "name": "id",
@@ -361,6 +373,7 @@
       "delete": {
         "tags": ["Video Games"],
         "description": "",
+        "security": [{ "sessionAuth": [] }],
         "parameters": [
           {
             "name": "id",

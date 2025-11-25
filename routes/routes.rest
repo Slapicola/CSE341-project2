@@ -25,27 +25,36 @@ POST http://localhost:5000/games
 Content-Type: application/json
 
 {
-    "title": "",
-    "releaseYear": "",
-    "developer": "",
-    "platforms": "",
-    "genre": "",
-    "modes": "",
-    "priceUSD": ""
+    "title": "New Game",
+    "releaseYear": 2001,
+    "developer": "A Dev",
+    "platforms": "PC",
+    "genre": "Adventure",
+    "modes": "Single player",
+    "priceUSD": 7.99
 }
 
 ### Put/update a movie
 PUT http://localhost:5000/movies/69161cef3d7f472eead3a1c7
 Content-Type: application/json
+# Cookie: connect.sid=s%3ADl-Gq0fXIse4-SvqBXxT3QzljzC_J16F.GiqqlKtMsvXWBHWbgWDQ2cPEudNP8TJLKStin4Iu1vA
 
 {
-    "title": "",
-    "releaseYear": "",
-    "director": "",
-    "productionCompany": "",
-    "mainCast": "",
-    "plot": "",
-    "runTimeMinutes": ""
+    "title": "Coco",
+    "releaseYear": 2018,
+    "director": "Lee Unkrich",
+    "productionCompany": "Disney",
+    "mainCast": [
+      "Anthony Gonzalez",
+      "Gael García Bernal",
+      "Benjamin Bratt",
+      "Alanna Ubach",
+      "Renée Victor",
+      "Ana Ofelia Murguía",
+      "Edward James Olmos"
+    ],
+    "plot": "Miguel, a young aspiring musician, is banished from his family's music tradition. He embarks on a journey to the Land of the Dead to find his great-great-grandfather, a legendary singer, and reverse the ban on music.",
+    "runTimeMinutes": 100
 }
 
 ### Put/update a game
