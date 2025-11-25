@@ -5,7 +5,7 @@
     "description": "An API for movies and games",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "cse341-project2-ef6b.onrender.com",
   "basePath": "/",
   "schemes": ["http"],
   "securityDefinitions": {
