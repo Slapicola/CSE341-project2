@@ -7,7 +7,7 @@
   },
   "host": "cse341-project2-ef6b.onrender.com",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": ["https"],
   "securityDefinitions": {
     "sessionAuth": {
       "type": "apiKey",
